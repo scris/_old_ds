@@ -29,6 +29,8 @@ bitcoin_url:
 paypal_url:
 flattr_button:
 
+permalink: :subtitle/
+
 # Build settings
 markdown:     kramdown
 permalink:    pretty
