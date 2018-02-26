@@ -1,17 +1,16 @@
 # Site settings
-title:       pixell中文版 
-email:       youremail@example.com 
-author:      John Otander
-description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
+title:       Dominik
+email:       slaaker@126.com
+author:      Dominik
+description: "Cuius rei demonstrationem mirabilem sane detexi. Hanc marginis exiguitas non caperet."
 baseurl:     ""
-url:         "http://pixyll.maxee.info"
+url:         "https://ds.scris.top/"
 
 #Duoshuo short Name / 多说的shortname
 duoshuo: 
 
 #Baidu analytics / 百度统计(异步的js码，注意使用异步版本的)
-baidu_analyze: 3908cbb144cf558ba6a823230d653fc22 
-
+baidu_analyze:  4a7701b5afbaa4089b4e2fbef17101f3
 # Google analytics
 google_analytics:
 
