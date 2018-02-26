@@ -29,7 +29,7 @@ bitcoin_url:
 paypal_url:
 flattr_button:
 
-permalink: :subtitle/
+permalink: /:subtitle
 
 # Build settings
 markdown:     kramdown
