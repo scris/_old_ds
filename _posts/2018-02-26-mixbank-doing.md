@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      制作Mixbank过程中的摘录
-subtitle: mixbank0226
+permalink:  /mixbank0226/
 date:       2018-02-26 10:54:07
 summary:   坑、坑、坑。
 categories: mixbank 笔记
