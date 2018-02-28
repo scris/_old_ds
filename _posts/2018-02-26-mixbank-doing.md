@@ -45,7 +45,7 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 
 ## iOS Native Share
 
-[点击我](https://scris.top/images/GJCSocial.zip)
+[点击我](https://scris.top/mixbank/images/GJCSocial.zip)
 
 如上文件来自 [苏小败在路上的博客](http://blog.csdn.net/pz789as/article/details/74526775)删。
 
