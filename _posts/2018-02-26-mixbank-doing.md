@@ -33,7 +33,7 @@ iOS中，VungleAds经常会没有广告，必须也把UnityAds加上去。
 
 ## ShareSDK
 
-ShareSDK脚本推荐挂Main Camera上，设置好appKey之类的，不然有可能会Xcode里Log说找不到（还是打得开的）。
+ShareSDK脚本推荐挂Main Camera上，设置好appKey之类的，不然有可能会Xcode里Log说找不到object（还是打得开分享panel的）。
 
 Unity里面测试出现*EntryPointNotFoundException: __iosShareSDKRegisterAppAndSetPltformsConfig*不用管，导出了就好啦。
 
@@ -43,6 +43,112 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 
 有几款SDK需要不启用bitcode，如果用了那几个平台，必须关掉bitcode。（Xcode项目文件BuildSettings里面）
 
+## iOS Native Share
+
+[点击我](https://scris.top/images/GJCSocial.zip)
+
+如上文件来自 [苏小败在路上的博客][http://blog.csdn.net/pz789as/article/details/74526775] ，侵删。
+
+下载下来之后放入Plugins/iOS目录下。（我在苏小败的版本中比他多加了一个链接，更方便使用。链接在.m文件中shareUrl，可以更换为自己的）
+
+写一个c#文件叫GJCNativeShare.cs，内容如下：
+    
+    using System.Collections;  
+    using System.Collections.Generic;  
+    using UnityEngine;  
+    #if UNITY_IPHONE && !UNITY_EDITOR  
+        using System.Runtime.InteropServices;  
+    #endif
+    
+    public class GJCNativeShare : MonoBehaviour
+    {
+    #if UNITY_IPHONE && !UNITY_EDITOR
+            [DllImport ("__Internal")]  
+            private static extern void _GJC_NativeShare(string text, string encodedMedia);  
+            #endif
+    
+        public delegate void OnShareSuccess(string platform);
+    
+        public delegate void OnShareCancel(string platform);
+    
+        public OnShareSuccess onShareSuccess = null;
+        public OnShareCancel onShareCancel = null;
+    
+        private static GJCNativeShare _instance = null;
+    
+        public static GJCNativeShare Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = GameObject.FindObjectOfType(typeof(GJCNativeShare)) as GJCNativeShare;
+                    if (_instance == null)
+                    {
+                        _instance = new GameObject().AddComponent<GJCNativeShare>();
+                        _instance.gameObject.name = _instance.GetType().FullName;
+                    }
+                }
+    
+                return _instance;
+            }
+        }
+    
+        public void NativeShare(string text, Texture2D texture = null)
+        {
+            Debug.Log("NativeShare");
+    #if UNITY_IPHONE && !UNITY_EDITOR
+                    if(texture != null) {  
+                        Debug.Log("NativeShare: Texture");  
+                        byte[] val = texture.EncodeToPNG();  
+                        string bytesString = System.Convert.ToBase64String (val);  
+                        _GJC_NativeShare(text, bytesString);  
+                    } else {  
+                        Debug.Log("NativeShare: No Texture");  
+                        _GJC_NativeShare(text, "");  
+                    }  
+                #endif
+        }
+    
+        private void OnNativeShareSuccess(string result)
+        {
+            // Debug.Log("success: " + result);  
+            if (onShareSuccess != null)
+            {
+                onShareSuccess(result);
+            }
+        }
+    
+        private void OnNativeShareCancel(string result)
+        {
+            // Debug.Log("cancel: " + result);  
+            if (onShareCancel != null)
+            {
+                onShareCancel(result);
+            }
+        }
+    }  
+
+接着就可以在自己的代码里调用：
+
+    public void iOSNativeShareFunction()
+	{
+		StartCoroutine(TakeScreenshotThenShare()); 
+	}
+
+	private IEnumerator TakeScreenshotThenShare()  
+	{  
+		yield return new WaitForEndOfFrame();  
+		var width = Screen.width;  
+		var height = Screen.height;  
+		var tex = new Texture2D(width, height, TextureFormat.RGB24, false);  
+		// Read screen contents into the texture  
+		tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);  
+		tex.Apply();//如上内容：截图
+		GJCNativeShare.Instance.NativeShare("你的文字内容", tex);  //url在.m文件中设置好之后这里不用调用
+		Destroy(tex);  
+	}  
+	
 ## Dotween
 
 淡入淡出用这玩意挺好的
@@ -175,8 +281,6 @@ fader为要淡出的GameObject，要淡入的放ta后面。
 ## 杂
 
 建议导出之后再自己搞Appiconset，Unity自动导出的少一个AppStore iCon。
-
-FixedUpdate是好东西。
 
 ## 应用下载地址
 
