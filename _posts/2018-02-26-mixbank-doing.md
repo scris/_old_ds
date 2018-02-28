@@ -47,7 +47,7 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 
 [点击我](http://file.233b.cn/s/mgvfhtei)
 
-如上文件来自 [苏小败在路上的博客](http://blog.csdn.net/pz789as/article/details/74526775)删。
+如上文件来自 [苏小败在路上的博客](http://blog.csdn.net/pz789as/article/details/74526775)，侵删。
 
 下载下来之后放入Plugins/iOS目录下。（我修改过以后比苏小败的版本多加了一个链接，点击链接直接跳到相关网页，如AppStore。链接在.m文件中shareUrl，可以更换为自己的）
 
