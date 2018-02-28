@@ -5,7 +5,7 @@ permalink: /about/
 no_duoshuo: true
 ---
 
-##Dominik##
+## Dominik
 
 - QQ 250#096#6718
 - Email slaaker#@1#26.co#m
