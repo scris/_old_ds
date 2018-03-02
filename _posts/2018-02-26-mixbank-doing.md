@@ -132,6 +132,7 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 
 接着就可以在自己的代码里调用：
 
+``` c#   
     public void iOSNativeShareFunction()
 	{
 		StartCoroutine(TakeScreenshotThenShare()); 
@@ -150,37 +151,50 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 		Destroy(tex);  
 	}  
 	
+```
+
 ## Dotween
 
 淡入淡出用这玩意挺好的
 
 首先引用namespace
 
+``` c#   
         using DG.Tweening;
-        
+```    
+    
 init：
-        
+
+``` c#           
         DOTween.Init();
+```
         
 然后用这个函数就好了
 
+``` c#   
     	void Fade(GameObject fader)
     	{
     		DOTween.ToAlpha(() => fader.GetComponent<Image>().color, x => fader.GetComponent<Image>().color = x, 0f, 2f);
     	}
+```
 
 fader为要淡出的GameObject，要淡入的放ta后面。
 
 ## GameCenter
 
+``` c#   
     using UnityEngine.SocialPlatforms;
+```
 
 -- 开始的时候
 
+``` c#   
     Social.localUser.Authenticate(HandleAuthenticated);
-    
+ ```   
+ 
 -- 引用的时候
 
+``` c#   
 	private void HandleAuthenticated(bool success)  
 	{  
 		GameCenterState = success;  
@@ -208,28 +222,36 @@ fader为要淡出的GameObject，要淡入的放ta后面。
 		}
 	}
 	
+```
 
 -- 调用OpenGameCenter方法打开面板
 
+``` c#   
     Social.ReportScore(/*分数*/, /*面板ID*/, HandleScoreReported);
+```
 
 回调函数：
 
+``` c#   
     void HandleScoreReported(bool success)  
     {  
     	//Debug.Log("*** HandleScoreReported: success = " + success);  
     }  
-    
+```  
+
 -- 读取数据，并加载到本地最高分
 
+``` c#   
 	if (Social.localUser.authenticated) {  
 		Social.LoadScores(/*面板ID*/,HandleGetGcScore);
 	}
-		
+```		
+
 这个的回调：
 
 *gcscore是long类型，即获得的GameCenter中分数*
 
+``` c#   
         void HandleGetGcScore(IScore[] iscore)
         {
             foreach (var va in iscore)
@@ -245,11 +267,13 @@ fader为要淡出的GameObject，要淡入的放ta后面。
                 return;
             }
         }
+```
 
 ## 跨场景播放音乐
 
 挂AudioSource上，AudioSource放在开始音乐的场景
 
+``` c#   
     public class MusicScript : MonoBehaviour {
         static MusicScript _instance;
         public static MusicScript instance    {
@@ -278,7 +302,7 @@ fader为要淡出的GameObject，要淡入的放ta后面。
     
         }
     }   
-
+```
 ## 杂
 
 建议导出之后再自己搞Appiconset，Unity自动导出的少一个AppStore iCon。
