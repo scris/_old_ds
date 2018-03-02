@@ -52,7 +52,7 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
 下载下来之后放入Plugins/iOS目录下。（我修改过以后比苏小败的版本多加了一个链接，点击链接直接跳到相关网页，如AppStore。链接在.m文件中shareUrl，可以更换为自己的）
 
 写一个c#文件叫GJCNativeShare.cs，内容如下：
-    
+``` c#    
     using System.Collections;  
     using System.Collections.Generic;  
     using UnityEngine;  
@@ -128,6 +128,7 @@ Unity里面出现appKey等内容找不到定义等问题，将Target改成iOS或
             }
         }
     }  
+```
 
 接着就可以在自己的代码里调用：
 
